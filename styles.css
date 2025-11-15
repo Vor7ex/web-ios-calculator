@@ -1,0 +1,35 @@
+body{
+    background-color: black;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+
+}
+
+.calculator-app{
+    /* Dimensiones base ya no fijas (se calculan) */
+    /* Estilos de ejemplo */
+    background-color: #000;
+    border-radius: 60px;
+    box-sizing: border-box;
+
+    /* Mantener proporción 680:1400 y escalar según el viewport.
+       - Si el ancho de la ventana es el límite, usa 680px (o 100vw).
+       - Si la altura de la ventana es el límite, calcula el ancho para mantener la proporción. */
+    aspect-ratio: 680 / 1400;
+    width: min(680px, calc(100vh * (680 / 1400))); /* se ajusta cuando la altura es el factor limitante */
+    max-width: 100vw;
+    height: auto;
+    max-height: 100vh;
+
+    display: grid;
+    grid-template-rows: 1fr 5fr 9fr;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+}
+
