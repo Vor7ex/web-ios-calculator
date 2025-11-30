@@ -25,11 +25,11 @@ body{
     max-height: 100vh;
 
     display: grid;
-    grid-template-rows: 10% 30% 60%;
+    grid-template-rows: 3.5% 6.5% 30% 60%;
 }
 
 header{
-    padding: 7.5% 4.4% 0 4.4%;
+    padding: 0 4.4%;
     display: flex;
     justify-content: space-between;
 }
@@ -73,7 +73,7 @@ button{
     border-radius: 50%;
     box-sizing: border-box;
     border: 0;
-    font-size: 40px;
+    font-size: 250%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,10 +112,14 @@ button{
 }
 
 .big-icon {
-    font-size: 50px;
+    font-size: 150%;
+}
+
+.big-icon-text {
+    font-size: 300%;
 }
 
 .small-icon {
-    font-size: 40px;
+    font-size: 100%;
 }
 
