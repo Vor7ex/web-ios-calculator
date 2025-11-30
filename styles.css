@@ -1,5 +1,5 @@
 body{
-    background-color: black;
+    background-color: rgb(50, 50, 50);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -12,7 +12,7 @@ body{
     /* Dimensiones base ya no fijas (se calculan) */
     /* Estilos de ejemplo */
     background-color: #000;
-    border-radius: 60px;
+    border-radius: 20px;
     box-sizing: border-box;
 
     /* Mantener proporción 680:1400 y escalar según el viewport.
@@ -25,11 +25,47 @@ body{
     max-height: 100vh;
 
     display: grid;
-    grid-template-rows: 1fr 5fr 9fr;
+    grid-template-rows: 10% 30% 60%;
 }
 
 header{
+    padding: 7.5% 4.4% 0 4.4%;
     display: flex;
     justify-content: space-between;
 }
 
+button{
+    height: 100%; /* reduce el tamaño del botón */
+    aspect-ratio: 1; /* mantiene cuadrado/circular */
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.keypad{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 2.5%; /* 17/680 = 2.5% separación entre botones */
+    padding: 0 4.4% 10% 4.4%;
+    box-sizing: border-box;
+}
+
+.calculator-display{
+    padding: 0 4.4% 6.5% 4.4%;
+}
+
+.previous-operand{
+    height: 65%;
+    color: #fff;
+    display: flex;
+    align-items: flex-end; /* alinea al fondo */
+    justify-content: flex-end; /* alinea a la derecha */
+}
+
+.current-operand{
+    height: 35%;
+    color: #fff;
+    display: flex;
+    align-items: flex-end; /* alinea al fondo */
+    justify-content: flex-end; /* alinea a la derecha */
+}
