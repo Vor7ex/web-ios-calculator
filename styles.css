@@ -5,7 +5,7 @@ body{
     justify-content: center;
     align-items: center;
     margin: 0;
-
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
 }
 
 .calculator-app{
@@ -34,13 +34,6 @@ header{
     justify-content: space-between;
 }
 
-button{
-    height: 100%; /* reduce el tamaño del botón */
-    aspect-ratio: 1; /* mantiene cuadrado/circular */
-    border-radius: 50%;
-    box-sizing: border-box;
-}
-
 .keypad{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -51,15 +44,17 @@ button{
 }
 
 .calculator-display{
-    padding: 0 4.4% 6.5% 4.4%;
+    padding: 0 4.4% 2.5% 4.4%;
 }
 
 .previous-operand{
     height: 65%;
-    color: #fff;
+    color: #8d8c91;
     display: flex;
     align-items: flex-end; /* alinea al fondo */
     justify-content: flex-end; /* alinea a la derecha */
+    font-size: 30px;
+    font-weight: 200; /* negrita (o bold) */
 }
 
 .current-operand{
@@ -68,4 +63,59 @@ button{
     display: flex;
     align-items: flex-end; /* alinea al fondo */
     justify-content: flex-end; /* alinea a la derecha */
+    font-size: 70px; /* ajusta el tamaño */
+    font-weight: 200; /* negrita (o bold) */
 }
+
+button{
+    height: 100%; /* reduce el tamaño del botón */
+    aspect-ratio: 1; /* mantiene cuadrado/circular */
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control{
+    background-color: #5c5c5c;
+    color: #fff;
+    border: 1px solid #8b8b8b;
+}
+
+.number{
+    background-color: #313131;
+    color: #fff;
+    border: 1px solid #575757;
+}
+
+.operator{
+    background-color: #fe9305;
+    color: #fff;
+    border: 1px solid #f0c370;
+}
+
+.menu-icon, .calculator-icon{
+    background-color: #181818;
+    color: #fff;
+    border: 1px solid #222222;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.big-icon {
+    font-size: 50px;
+}
+
+.small-icon {
+    font-size: 40px;
+}
+
