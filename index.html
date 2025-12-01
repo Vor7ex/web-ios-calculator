@@ -7,7 +7,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
-    <script src='script.js'></script>
+    <script src='script.js' defer></script>
 </head>
 <body>
 
@@ -27,39 +27,39 @@
         </header>
 
         <div class="calculator-display">
-            <div class="previous-operand">12,347×6</div>
-            <div class="current-operand">74,082</div>
+            <div class="previous-operand" id="previous-operand"></div>
+            <div class="current-operand" id="current-operand">0</div>
         </div>
 
         <div class="keypad">
-            <button class="control">
+            <button class="control" onclick="deleteDigit()">
                 <span class="material-symbols-outlined big-icon">
                 backspace
                 </span>
             </button>
-            <button class="control">AC</button>
-            <button class="control">
+            <button class="control" onclick="clearAll()">AC</button>
+            <button class="control" onclick="appendOperator('%')">
                 <span class="material-symbols-outlined big-icon">
                 percent
                 </span>
             </button>
-            <button class="operator big-icon-text">÷</button>
-            <button class="number">7</button>
-            <button class="number">8</button>
-            <button class="number">9</button>
-            <button class="operator big-icon-text">×</button>
-            <button class="number">4</button>
-            <button class="number">5</button>
-            <button class="number">6</button>
-            <button class="operator big-icon-text">-</button>
-            <button class="number">1</button>
-            <button class="number">2</button>
-            <button class="number">3</button>
-            <button class="operator big-icon-text">+</button>
-            <button class="number">+/-</button>
-            <button class="number">0</button>
-            <button class="number">.</button>
-            <button class="operator big-icon-text">=</button>
+            <button class="operator big-icon-text" onclick="appendOperator('÷')">÷</button>
+            <button class="number" onclick="appendNumber('7')">7</button>
+            <button class="number" onclick="appendNumber('8')">8</button>
+            <button class="number" onclick="appendNumber('9')">9</button>
+            <button class="operator big-icon-text" onclick="appendOperator('×')">×</button>
+            <button class="number" onclick="appendNumber('4')">4</button>
+            <button class="number" onclick="appendNumber('5')">5</button>
+            <button class="number" onclick="appendNumber('6')">6</button>
+            <button class="operator big-icon-text" onclick="appendOperator('-')">-</button>
+            <button class="number" onclick="appendNumber('1')">1</button>
+            <button class="number" onclick="appendNumber('2')">2</button>
+            <button class="number" onclick="appendNumber('3')">3</button>
+            <button class="operator big-icon-text" onclick="appendOperator('+')">+</button>
+            <button class="number" onclick="changeSign()">+/-</button>
+            <button class="number" onclick="appendNumber('0')">0</button>
+            <button class="number" onclick="appendNumber('.')">.</button>
+            <button class="operator big-icon-text" onclick="calculateResult()">=</button>
         </div>
     </div>
 </body>

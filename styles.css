@@ -45,6 +45,7 @@ header{
 
 .calculator-display{
     padding: 0 4.4% 2.5% 4.4%;
+    overflow: hidden;
 }
 
 .previous-operand{
@@ -77,6 +78,8 @@ button{
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .control{
@@ -89,6 +92,16 @@ button{
     background-color: #313131;
     color: #fff;
     border: 1px solid #575757;
+}
+
+button:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+}
+
+button:active {
+    filter: brightness(1.4);
+    transform: scale(1.25);
 }
 
 .operator{
@@ -122,4 +135,3 @@ button{
 .small-icon {
     font-size: 100%;
 }
-
