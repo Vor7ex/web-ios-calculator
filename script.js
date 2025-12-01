@@ -1,4 +1,5 @@
 let display = document.getElementById('current-operand')
+let previousOperandDisplay = document.getElementById('previous-operand');
 
 function isLastNumberDecimal(numberString){
     let lastNumberMatch = numberString.match(/(-?\d+(\.\d+)?|\(-\d+(\.\d+)?\))$/);
@@ -254,9 +255,9 @@ function calculateResult(){
         let result = solveExpression(expression);
         
         // Redondear para evitar problemas de punto flotante (ej: 0.1 + 0.2)
-        // Mantenemos hasta 8 decimales y quitamos ceros extra
-        result = parseFloat(result.toFixed(8)); 
-        
+        // Mantenemos hasta 9 decimales y quitamos ceros extra
+        result = parseFloat(result.toFixed(9)); 
+        previousOperandDisplay.textContent = display.textContent;
         display.textContent = result;
     } catch (e) {
         display.textContent = "Error";
