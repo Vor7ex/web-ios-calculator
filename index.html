@@ -14,7 +14,7 @@
     <div class="calculator-app">
         <div class="notch"></div>
         <header>
-            <button class="menu-icon">
+            <button class="history-icon">
                 <span class="material-symbols-outlined small-icon">
                 history
                 </span>
@@ -25,12 +25,14 @@
                 </span>
             </button>
         </header>
-
-        <div class="calculator-display">
-            <div class="previous-operand" id="previous-operand"></div>
-            <div class="current-operand" id="current-operand">0</div>
+        <div class="display-container">
+            <div class="display-border" id="left-border"></div>
+            <div class="calculator-display">
+                <div class="previous-operand" id="previous-operand"></div>
+                <div class="current-operand" id="current-operand">0</div>
+            </div>
+            <div class="display-border" id="right-border"></div>
         </div>
-
         <div class="keypad">
             <button class="control" onclick="deleteDigit()">
                 <span class="material-symbols-outlined big-icon">

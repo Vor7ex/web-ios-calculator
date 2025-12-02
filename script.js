@@ -1,5 +1,11 @@
 let display = document.getElementById('current-operand')
 let previousOperandDisplay = document.getElementById('previous-operand');
+let resultDisplayed = false;
+
+// Variables para recordar la última operación
+let lastOperation = null; // Guardará { operator: '+', operand: '5' }
+let isRepeatOperation = false; // Bandera para saber si estamos repitiendo
+
 
 function isLastNumberDecimal(numberString){
     let lastNumberMatch = numberString.match(/(-?\d+(\.\d+)?|\(-\d+(\.\d+)?\))$/);
@@ -8,16 +14,34 @@ function isLastNumberDecimal(numberString){
 }
 
 function appendNumber(number){
+    if (resultDisplayed){
+        // Si el usuario escribe un número después de un resultado, reseteamos todo
+        display.textContent = '0';
+        previousOperandDisplay.textContent = '';
+        resultDisplayed = false;
+        lastOperation = null; // Reseteamos la operación guardada
+        isRepeatOperation = false;
+    }
     if (display.textContent == '0' && number != '.'){
        display.textContent = '';
     }
     if (number == '.' && isLastNumberDecimal(display.textContent)){
         return;
     }
-    display.textContent += number;
+    newContent = formatExpression(display.textContent + number);
+    display.textContent = newContent;
 }
 
 function appendOperator(operator){
+    if (display.textContent == NaN || display.textContent == Infinity || display.textContent == -Infinity) {
+        return;
+    }
+    if (resultDisplayed){
+        previousOperandDisplay.textContent = '';
+        resultDisplayed = false;
+        lastOperation = null; // Reseteamos la operación guardada al añadir un operador nuevo
+        isRepeatOperation = false;
+    }
     let lastChar = display.textContent.at(-1);
     let timesMinus = display.textContent.slice(-2) == '×-' || display.textContent.slice(-2) == '÷-' ? true : false;
     if (lastChar == undefined || (lastChar == operator && operator != '%')) return;
@@ -50,6 +74,10 @@ function appendOperator(operator){
 
 function clearAll(){
     display.textContent = '0';
+    previousOperandDisplay.textContent = '';
+    resultDisplayed = false;
+    lastOperation = null; // Reseteamos la operación guardada
+    isRepeatOperation = false;
 }
 
 function deleteDigit(){
@@ -59,6 +87,10 @@ function deleteDigit(){
     } else {
         display.textContent = content.slice(0, -1);
     }
+    previousOperandDisplay.textContent = '';
+    resultDisplayed = false;
+    lastOperation = null; // Reseteamos la operación guardada
+    isRepeatOperation = false;
 }
 
 function changeSign(){
@@ -145,7 +177,7 @@ function solveExpression(expr) {
         let depth = 0;
         let isWrapped = true;
         for (let i = 0; i < expr.length - 1; i++) {
-            if (expr[i] === '(') depth++;
+            if (expr[i] === '(') depth++; 
             if (expr[i] === ')') depth--;
             if (depth === 0) {
                 isWrapped = false;
@@ -242,10 +274,33 @@ function findOperatorIndex(expr, operators) {
     return -1;
 }
 
-// Actualiza tu función calculateResult para usar esta lógica
 function calculateResult(){
-    let expression = display.textContent;
+    if (display.textContent == NaN || display.textContent == Infinity || display.textContent == -Infinity) {
+        return;
+    }
+    let expression = getCleanExpression(display.textContent);
     
+    // Lógica de repetición de operación
+    if (resultDisplayed && lastOperation) {
+        // Si ya se mostró un resultado y presionamos igual de nuevo, usamos la operación guardada
+        expression = display.textContent + lastOperation.operator + lastOperation.operand;
+        isRepeatOperation = true;
+    } else {
+        // Es un cálculo normal, intentamos extraer la última operación para guardarla
+        // Buscamos el último operador y el último número
+        // Nota: Esta lógica es simplificada, funciona bien para operaciones binarias simples al final
+        let match = expression.match(/([+\-×÷])(-?\d+(\.\d+)?)$/);
+        if (match) {
+            lastOperation = {
+                operator: match[1],
+                operand: match[2]
+            };
+        } else {
+            lastOperation = null;
+        }
+        isRepeatOperation = false;
+    }
+
     // Normalizar paréntesis si faltan
     if (!isInterpretable(expression)) {
         expression = normalizeExpression(expression);
@@ -253,14 +308,43 @@ function calculateResult(){
 
     try {
         let result = solveExpression(expression);
-        
-        // Redondear para evitar problemas de punto flotante (ej: 0.1 + 0.2)
-        // Mantenemos hasta 9 decimales y quitamos ceros extra
+        if (result == expression) {
+            // Evita mostrar el mismo número si no hubo cambio
+            return;
+        }
+        // Redondear para evitar problemas de punto flotante
         result = parseFloat(result.toFixed(9)); 
-        previousOperandDisplay.textContent = display.textContent;
-        display.textContent = result;
+        
+        if (isRepeatOperation) {
+            // Si es repetición, mostramos la operación completa en el historial pequeño
+            previousOperandDisplay.textContent = expression; 
+        } else {
+            previousOperandDisplay.textContent = display.textContent;
+        }
+        
+        display.textContent = formatExpression(result.toString());
+        resultDisplayed = true;
     } catch (e) {
         display.textContent = "Error";
         console.error(e);
     }
+}
+
+// Obtiene el contenido del display sin comas para poder operarlo
+function getCleanExpression() {
+    return display.textContent.replace(/,/g, '');
+}
+
+// Formatea una expresión numérica añadiendo comas a los miles
+function formatExpression(expression) {
+    // Primero limpiamos por seguridad
+    let clean = expression.replace(/,/g, '');
+    
+    // Regex compleja: Busca números (enteros o decimales) dentro del string
+    // y aplica el formato solo a la parte entera
+    return clean.replace(/(\d+)(\.?\d*)/g, (match, integerPart, decimalPart) => {
+        // Añade comas cada 3 dígitos en la parte entera
+        let formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return formattedInteger + decimalPart;
+    });
 }

@@ -43,8 +43,63 @@ header{
     box-sizing: border-box;
 }
 
+.display-container{
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    overflow: hidden;
+
+    /* necesario para que los overlays se posicionen encima del contenido */
+    position: relative;
+}
+
+.display-border {
+    min-width: 4.4%;
+    max-width: 4.4%;
+    width: 4.4%;
+    overflow: hidden;
+}
+
+#left-border {
+    /* fuera del flujo, superpuesto sobre el contenido */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 8%;
+    min-width: 8%;
+    max-width: 8%;
+    pointer-events: none; /* no bloquear interacción */
+    z-index: 10;
+
+    /* Degradado que va de opaco en el borde a transparente hacia la derecha.
+       Las alfas intermedias permiten ver el texto debajo (se atenúa, no lo oculta). */
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,1) 55%,
+        rgba(0,0,0,0) 100%
+    );
+}
+
+#right-border {
+
+    width: 4.4%;
+    min-width: 4.4%;
+    max-width: 4.4%;
+    pointer-events: none;
+    z-index: 10;
+
+    background: linear-gradient(
+        to left,
+        rgba(0,0,0,1) 55%,
+        rgba(0,0,0,0) 100%
+    );
+}
+
 .calculator-display{
-    padding: 0 4.4% 2.5% 4.4%;
+    width: 100%;
+    padding-bottom: 2.5%;
     overflow: hidden;
 }
 
@@ -66,6 +121,7 @@ header{
     justify-content: flex-end; /* alinea a la derecha */
     font-size: 70px; /* ajusta el tamaño */
     font-weight: 200; /* negrita (o bold) */
+    white-space: nowrap;
 }
 
 button{
@@ -85,13 +141,13 @@ button{
 .control{
     background-color: #5c5c5c;
     color: #fff;
-    border: 1px solid #8b8b8b;
+    border: 2px solid #8b8b8b;
 }
 
 .number{
     background-color: #313131;
     color: #fff;
-    border: 1px solid #575757;
+    border: 2px solid #575757;
 }
 
 button:hover {
@@ -107,13 +163,13 @@ button:active {
 .operator{
     background-color: #fe9305;
     color: #fff;
-    border: 1px solid #f0c370;
+    border: 2px solid #f0c370;
 }
 
-.menu-icon, .calculator-icon{
+.history-icon, .calculator-icon{
     background-color: #181818;
     color: #fff;
-    border: 1px solid #222222;
+    border: 2px solid #222222;
 }
 
 .material-symbols-outlined {
