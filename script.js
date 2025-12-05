@@ -91,6 +91,7 @@ function deleteDigit(){
     resultDisplayed = false;
     lastOperation = null; // Reseteamos la operación guardada
     isRepeatOperation = false;
+    display.textContent = formatExpression(display.textContent);
 }
 
 function changeSign(){
